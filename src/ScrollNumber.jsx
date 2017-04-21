@@ -8,9 +8,18 @@
  */
 
 import React, { createElement } from 'react';
-import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
+
+const renderNumberList = (position) => {
+  const childrenToReturn = [];
+  for (let i = 0; i < 30; i++) {
+    const currentClassName = (position === i) ? 'current' : null;
+    childrenToReturn.push(<p key={i} className={currentClassName}>{i % 10}</p>);
+  }
+  return childrenToReturn;
+};
+
 
 function getNumberArray(num) {
   return num ?
@@ -38,25 +47,6 @@ class ScrollNumber extends React.Component {
     }
   }
 
-  getPositionByNum(num, i) {
-    if (this.state.animateStarted) {
-      return 10 + num;
-    }
-    const currentDigit = getNumberArray(this.state.count)[i];
-    const lastDigit = getNumberArray(this.lastCount)[i];
-    // 同方向则在同一侧切换数字
-    if (this.state.count > this.lastCount) {
-      if (currentDigit >= lastDigit) {
-        return 10 + num;
-      }
-      return 20 + num;
-    }
-    if (currentDigit <= lastDigit) {
-      return 10 + num;
-    }
-    return num;
-  }
-
   componentWillReceiveProps(nextProps) {
     if ('count' in nextProps) {
       if (this.state.count === nextProps.count) {
@@ -81,13 +71,23 @@ class ScrollNumber extends React.Component {
     }
   }
 
-  renderNumberList(position) {
-    const childrenToReturn = [];
-    for (let i = 0; i < 30; i++) {
-      const currentClassName = (position === i) ? 'current' : null;
-      childrenToReturn.push(<p key={i} className={currentClassName}>{i % 10}</p>);
+  getPositionByNum(num, i) {
+    if (this.state.animateStarted) {
+      return 10 + num;
     }
-    return childrenToReturn;
+    const currentDigit = getNumberArray(this.state.count)[i];
+    const lastDigit = getNumberArray(this.lastCount)[i];
+    // 同方向则在同一侧切换数字
+    if (this.state.count > this.lastCount) {
+      if (currentDigit >= lastDigit) {
+        return 10 + num;
+      }
+      return 20 + num;
+    }
+    if (currentDigit <= lastDigit) {
+      return 10 + num;
+    }
+    return num;
   }
 
   renderCurrentNumber(num, i) {
@@ -104,7 +104,7 @@ class ScrollNumber extends React.Component {
         height,
       },
       key: i,
-    }, this.renderNumberList(position));
+    }, renderNumberList(position));
   }
 
   renderNumberElement() {
@@ -138,8 +138,8 @@ ScrollNumber.defaultProps = {
   count: null,
   component: 'sup',
   onAnimated() {},
-  height: 18,
-}
+  height: 14,
+};
 
 
 ScrollNumber.propTypes = {
@@ -150,6 +150,8 @@ ScrollNumber.propTypes = {
   component: React.PropTypes.string,
   onAnimated: React.PropTypes.func,
   height: React.PropTypes.number,
-}
+  prefixCls: React.PropTypes.string,
+  className: React.PropTypes.string,
+};
 
 export default ScrollNumber;
