@@ -77,4 +77,6 @@ Badge.propTypes = {
   children: React.PropTypes.any,
 };
 
+Badge.displayName = 'Badge';
+
 export default Badge;
