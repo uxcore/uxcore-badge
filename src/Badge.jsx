@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Animate from 'rc-animate';
 import classNames from 'classnames';
 import ScrollNumber from './ScrollNumber';
@@ -33,7 +34,7 @@ class Badge extends React.Component {
     });
 
     return (
-      <span className={badgeCls} title={count} {...this.props}>
+      <span className={badgeCls} title={count}>
         {children}
         <Animate
           component=""
@@ -64,17 +65,17 @@ Badge.defaultProps = {
 };
 
 Badge.propTypes = {
-  prefixCls: React.PropTypes.string,
-  count: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  prefixCls: PropTypes.string,
+  count: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  dot: React.PropTypes.bool,
-  overflowCount: React.PropTypes.number,
-  text: React.PropTypes.string,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object,
-  children: React.PropTypes.any,
+  dot: PropTypes.bool,
+  overflowCount: PropTypes.number,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.any,
 };
 
 Badge.displayName = 'Badge';
