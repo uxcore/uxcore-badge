@@ -119,6 +119,7 @@ class ScrollNumber extends React.Component {
 
   render() {
     const props = {
+      height: this.props.height,
       className: classnames({
         [`${this.props.prefixCls}`]: true,
         [`${this.props.className}`]: !!this.props.className,
