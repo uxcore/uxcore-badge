@@ -8,6 +8,7 @@
  */
 
 import React, { createElement } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
 
@@ -118,7 +119,7 @@ class ScrollNumber extends React.Component {
 
   render() {
     const props = {
-      ...this.props,
+      height: this.props.height,
       className: classnames({
         [`${this.props.prefixCls}`]: true,
         [`${this.props.className}`]: !!this.props.className,
@@ -143,15 +144,15 @@ ScrollNumber.defaultProps = {
 
 
 ScrollNumber.propTypes = {
-  count: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  count: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  component: React.PropTypes.string,
-  onAnimated: React.PropTypes.func,
-  height: React.PropTypes.number,
-  prefixCls: React.PropTypes.string,
-  className: React.PropTypes.string,
+  component: PropTypes.string,
+  onAnimated: PropTypes.func,
+  height: PropTypes.number,
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ScrollNumber;
