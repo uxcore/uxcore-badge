@@ -31,7 +31,6 @@ class Badge extends React.Component {
       [className]: !!className,
       [prefixCls]: true,
       [`${prefixCls}-not-a-wrapper`]: !children,
-      [`${this.props.className}`]: !!this.props.className,
     });
 
     return (

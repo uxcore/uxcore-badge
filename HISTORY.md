@@ -1,3 +1,7 @@
+## 0.2.2
+
+* `CHANGED` upgrade to react 15.x
+
 ## 0.2.1
 
 * `CHANGED` add displayName
