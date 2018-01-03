@@ -37,28 +37,28 @@ describe('Uxcore Badge', () => {
         expect(text).to.be('test123');
     });
 
-    it('should be able to change count', () => {
+    it('should be able to change count', (done) => {
         const wrapper = mount(<Badge count={23} />);
         wrapper.setProps({ count: 45 });
 
-        const values = wrapper.find('.kuma-badge-count .current');
-        const mergedValue = values.map(el => el.text()).join('');
-
         setTimeout(() => {
+            const values = wrapper.update().find('.kuma-badge-count .current');
+            const mergedValue = values.map(el => el.text()).join('');
             expect(mergedValue).to.be('45');
+            done();
         }, 10);
     });
 
-    it('should be able to change count without animation', () => {
+    it('should be able to change count without animation', (done) => {
         const wrapper = mount(<Badge count={23} />);
         wrapper.setState({ animationEnabled: false });
         wrapper.setProps({ count: 45 });
 
-        const values = wrapper.find('.kuma-badge-count .current');
-        const mergedValue = values.map(el => el.text()).join('');
-
         setTimeout(() => {
+            const values = wrapper.update().find('.kuma-badge-count .current');
+            const mergedValue = values.map(el => el.text()).join('');
             expect(mergedValue).to.be('45');
+            done();
         }, 10);
     });
 });
