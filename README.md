@@ -2,7 +2,7 @@
 
 ## uxcore-badge
 
-[![Test Coverage][https://img.shields.io/coveralls/uxcore/uxcore-badge.svg?style=flat-square]][https://coveralls.io/r/uxcore/uxcore-badge?branch=master]
+[![Test Coverage](https://img.shields.io/coveralls/uxcore/uxcore-badge.svg?style=flat-square)](https://coveralls.io/r/uxcore/uxcore-badge?branch=master)
 [![Dependency Status](http://img.shields.io/david/uxcore/uxcore-badge.svg?style=flat-square)](https://david-dm.org/uxcore/uxcore-badge)
 [![devDependency Status](http://img.shields.io/david/dev/uxcore/uxcore-badge.svg?style=flat-square)](https://david-dm.org/uxcore/uxcore-badge#info=devDependencies)
 
