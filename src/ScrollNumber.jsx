@@ -11,6 +11,7 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
+import { polyfill } from 'react-lifecycles-compat';
 
 const renderNumberList = (position) => {
   const childrenToReturn = [];
@@ -37,6 +38,7 @@ class ScrollNumber extends React.Component {
       animateStarted: true,
       count: props.count,
       animationEnabled: true,
+      lastCount: 0,
     };
   }
 
@@ -48,26 +50,26 @@ class ScrollNumber extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ('count' in nextProps) {
-      if (this.state.count === nextProps.count) {
-        return;
+  static getDerivedStateFromProps(props, state) {
+    if ('count' in props) {
+      if (state.count === props.count) {
+        return null;
       }
-      this.lastCount = this.state.count;
-      // 复原数字初始位置
-      this.setState({
+      return {
         animateStarted: true,
+        lastCount: state.count
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.count !== prevProps.count) {
+      this.setState({
+        animateStarted: false,
+        count: this.props.count,
       }, () => {
-        // 等待数字位置复原完毕
-        // 开始设置完整的数字
-        setTimeout(() => {
-          this.setState({
-            animateStarted: false,
-            count: nextProps.count,
-          }, () => {
-            this.props.onAnimated();
-          });
-        }, 5);
+        prevProps.onAnimated();
       });
     }
   }
@@ -77,9 +79,9 @@ class ScrollNumber extends React.Component {
       return 10 + num;
     }
     const currentDigit = getNumberArray(this.state.count)[i];
-    const lastDigit = getNumberArray(this.lastCount)[i];
+    const lastDigit = getNumberArray(this.state.lastCount)[i];
     // 同方向则在同一侧切换数字
-    if (this.state.count > this.lastCount) {
+    if (this.state.count > this.state.lastCount) {
       if (currentDigit >= lastDigit) {
         return 10 + num;
       }
@@ -95,7 +97,7 @@ class ScrollNumber extends React.Component {
     const position = this.getPositionByNum(num, i);
     const height = this.props.height;
     const removeTransition = this.state.animateStarted ||
-      (getNumberArray(this.lastCount)[i] === undefined);
+      (getNumberArray(this.state.lastCount)[i] === undefined);
     return createElement('span', {
       className: `${this.props.prefixCls}-only`,
       style: {
@@ -154,5 +156,7 @@ ScrollNumber.propTypes = {
   prefixCls: PropTypes.string,
   className: PropTypes.string,
 };
+
+polyfill(ScrollNumber);
 
 export default ScrollNumber;
