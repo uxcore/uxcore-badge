@@ -55,6 +55,7 @@ class ScrollNumber extends React.Component {
       if (state.count === props.count) {
         return null;
       }
+      // 复原数字初始位置
       return {
         animateStarted: true,
         lastCount: state.count
@@ -64,6 +65,7 @@ class ScrollNumber extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // 等待数字位置复原完毕,开始设置完整的数字
     if (this.props.count !== prevProps.count) {
       this.setState({
         animateStarted: false,
