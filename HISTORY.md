@@ -1,3 +1,7 @@
+## 0.3.1
+
+* `CHANGED` upgrade to react 16.x
+
 ## 0.2.2
 
 * `CHANGED` upgrade to react 15.x
