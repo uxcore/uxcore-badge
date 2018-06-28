@@ -35,7 +35,8 @@ class Badge extends React.Component {
 
     return (
       <span className={badgeCls} title={count}
-            style={this.props.style}>
+        style={this.props.style}
+      >
         {children}
         <Animate
           component=""

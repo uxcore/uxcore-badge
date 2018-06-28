@@ -13,22 +13,27 @@ import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
 import { polyfill } from 'react-lifecycles-compat';
 
-const renderNumberList = (position) => {
+const renderNumberList = position => {
   const childrenToReturn = [];
   for (let i = 0; i < 30; i++) {
-    const currentClassName = (position === i) ? 'current' : null;
-    childrenToReturn.push(<p key={i} className={currentClassName}>{i % 10}</p>);
+    const currentClassName = position === i ? 'current' : null;
+    childrenToReturn.push(
+      <p key={i} className={currentClassName}>
+        {i % 10}
+      </p>
+    );
   }
   return childrenToReturn;
 };
 
-
 function getNumberArray(num) {
-  return num ?
-    num.toString()
-      .split('')
-      .reverse()
-      .map(i => Number(i)) : [];
+  return num
+    ? num
+        .toString()
+        .split('')
+        .reverse()
+        .map(i => Number(i))
+    : [];
 }
 
 class ScrollNumber extends React.Component {
@@ -57,8 +62,9 @@ class ScrollNumber extends React.Component {
       }
       // 复原数字初始位置
       return {
-        animateStarted: true,
-        lastCount: state.count
+        animateStarted: state.count === props.count,
+        lastCount: state.count,
+        count: props.count,
       };
     }
     return null;
@@ -68,12 +74,7 @@ class ScrollNumber extends React.Component {
     // 等待数字位置复原完毕,
     // 开始设置完整的数字
     if (this.props.count !== prevProps.count) {
-      this.setState({
-        animateStarted: false,
-        count: this.props.count,
-      }, () => {
-        prevProps.onAnimated();
-      });
+      prevProps.onAnimated();
     }
   }
 
@@ -99,18 +100,23 @@ class ScrollNumber extends React.Component {
   renderCurrentNumber(num, i) {
     const position = this.getPositionByNum(num, i);
     const height = this.props.height;
-    const removeTransition = this.state.animateStarted ||
-      (getNumberArray(this.state.lastCount)[i] === undefined);
-    return createElement('span', {
-      className: `${this.props.prefixCls}-only`,
-      style: {
-        transition: removeTransition && 'none',
-        WebkitTransform: `translate3d(0, ${-position * height}px, 0)`,
-        transform: `translate3d(0, ${-position * height}px, 0)`,
-        height,
+    const removeTransition =
+      this.state.animateStarted ||
+      getNumberArray(this.state.lastCount)[i] === undefined;
+    return createElement(
+      'span',
+      {
+        className: `${this.props.prefixCls}-only`,
+        style: {
+          transition: removeTransition && 'none',
+          WebkitTransform: `translate3d(0, ${-position * height}px, 0)`,
+          transform: `translate3d(0, ${-position * height}px, 0)`,
+          height,
+        },
+        key: i,
       },
-      key: i,
-    }, renderNumberList(position));
+      renderNumberList(position)
+    );
   }
 
   renderNumberElement() {
@@ -119,7 +125,8 @@ class ScrollNumber extends React.Component {
       return state.count;
     }
     return getNumberArray(state.count)
-      .map((num, i) => this.renderCurrentNumber(num, i)).reverse();
+      .map((num, i) => this.renderCurrentNumber(num, i))
+      .reverse();
   }
 
   render() {
@@ -147,12 +154,8 @@ ScrollNumber.defaultProps = {
   height: 14,
 };
 
-
 ScrollNumber.propTypes = {
-  count: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   component: PropTypes.string,
   onAnimated: PropTypes.func,
   height: PropTypes.number,
