@@ -43,6 +43,7 @@ class ScrollNumber extends React.Component {
       animateStarted: true,
       count: props.count,
       animationEnabled: true,
+      lastCount: 1,
     };
   }
 
@@ -63,6 +64,7 @@ class ScrollNumber extends React.Component {
       return {
         animateStarted: state.count === props.count,
         count: props.count,
+        lastCount: state.count,
       };
     }
     return null;
@@ -72,7 +74,6 @@ class ScrollNumber extends React.Component {
     // 等待数字位置复原完毕,
     // 开始设置完整的数字
     if (this.props.count !== prevProps.count) {
-      this.lastCount = prevProps.count;
       prevProps.onAnimated();
     }
   }
@@ -82,9 +83,9 @@ class ScrollNumber extends React.Component {
       return 10 + num;
     }
     const currentDigit = getNumberArray(this.state.count)[i];
-    const lastDigit = getNumberArray(this.lastCount)[i];
+    const lastDigit = getNumberArray(this.state.lastCount)[i];
     // 同方向则在同一侧切换数字
-    if (this.state.count > this.lastCount) {
+    if (this.state.count > this.state.lastCount) {
       if (currentDigit >= lastDigit) {
         return 10 + num;
       }
@@ -101,7 +102,7 @@ class ScrollNumber extends React.Component {
     const height = this.props.height;
     const removeTransition =
       this.state.animateStarted ||
-      getNumberArray(this.lastCount)[i] === undefined;
+      getNumberArray(this.state.lastCount)[i] === undefined;
     return createElement(
       'span',
       {
