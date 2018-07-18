@@ -7,11 +7,10 @@
  */
 
 const React = require('react');
-const Badge = require('../src');
 const Button = require('uxcore-button');
+const Badge = require('../src');
 
 class Demo extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -49,19 +48,41 @@ class Demo extends React.Component {
           padding: 20,
         }}
       >
-        <h1>基本模式</h1>
+        <h1>
+          基本模式
+        </h1>
         <Badge count={1}>
           <span href="#" className="head-example" />
         </Badge>
-        <h1>小点</h1>
+        <h1>
+          小点
+        </h1>
         <Badge dot>
           <span href="#" className="head-example" />
         </Badge>
-        <h1>文字型</h1>
-        <Badge text={'NEW'}>
+        <h1>
+          文字型
+        </h1>
+        <Badge text="NEW">
           <span href="#" className="head-example" />
         </Badge>
-        <h1>显示/隐藏</h1>
+        <h1>
+          深色背景下
+        </h1>
+        <div style={{ background: '#F37327', padding: '10px 0' }}>
+          <Badge themeType="dark" count={1}>
+            <span href="#" className="head-example" />
+          </Badge>
+          <Badge themeType="dark" dot>
+            <span href="#" className="head-example" />
+          </Badge>
+          <Badge themeType="dark" text="NEW">
+            <span href="#" className="head-example" />
+          </Badge>
+        </div>
+        <h1>
+          显示/隐藏
+        </h1>
         <Badge count={this.state.count}>
           <span href="#" className="head-example" />
         </Badge>
@@ -76,13 +97,21 @@ class Demo extends React.Component {
           <span href="#" className="head-example" />
         </Badge>
         <div>
-          <Button type="outline" onClick={this.handleShow.bind(this)}>显示/隐藏</Button>
+          <Button type="outline" onClick={this.handleShow.bind(this)}>
+            显示/隐藏
+          </Button>
         </div>
-        <h1>包裹文字</h1>
+        <h1>
+          包裹文字
+        </h1>
         <Badge dot style={{ top: '-1px' }}>
-          <a href="https://uxcore.coding.me" rel="noopener noreferrer" target="_blank">链接文字</a>
+          <a href="https://uxcore.coding.me" rel="noopener noreferrer" target="_blank">
+            链接文字
+          </a>
         </Badge>
-        <h1>数字增减</h1>
+        <h1>
+          数字增减
+        </h1>
         <Badge count={this.state.count2}>
           <span href="#" className="head-example" />
         </Badge>
@@ -90,11 +119,17 @@ class Demo extends React.Component {
           <Button
             size="small"
             type="outline"
-            onClick={this.handlePlus.bind(this)} style={{
+            onClick={this.handlePlus.bind(this)}
+            style={{
               marginRight: 10,
             }}
-          >+</Button>
-          <Button size="small" type="outline" onClick={this.handleMinus.bind(this)}>-</Button>
+          >
+            +
+
+          </Button>
+          <Button size="small" type="outline" onClick={this.handleMinus.bind(this)}>
+            -
+          </Button>
         </div>
       </div>
     );

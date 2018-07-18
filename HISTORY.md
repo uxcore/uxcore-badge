@@ -1,3 +1,7 @@
+## 0.3.4
+
+* `CHANGED` support new prop  `themeType`
+
 ## 0.3.1
 
 * `CHANGED` upgrade to react 16.x

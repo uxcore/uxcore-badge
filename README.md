@@ -36,4 +36,5 @@ http://uxcore.github.io/
 | overflowCount | number | optional | 99 | 展示封顶的数字值|
 | dot | boolean | optional | false | 不展示数字，只有一个小红点|
 | text | string | optional | "" | 展示的文字 |
+| themeType | string | optional | default | 主题，枚举值，default、dark，dark 用于深色背景下 |
 

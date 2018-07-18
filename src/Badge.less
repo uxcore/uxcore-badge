@@ -7,7 +7,7 @@
  */
 
 @__badge-prefix-cls: kuma-badge;
-@__number-prefix-cls: kuma-scroll-number;
+@__badge-number-prefix-cls: kuma-scroll-number;
 
 .@{__badge-prefix-cls} {
   position: relative;
@@ -81,7 +81,7 @@ a & {
   }
 }
 
-.@{__number-prefix-cls} {
+.@{__badge-number-prefix-cls} {
   overflow: hidden;
   &-only {
     display: inline-block;
@@ -95,6 +95,14 @@ a & {
         display: block;
       }
     }
+  }
+}
+
+.@{__badge-prefix-cls}-dark {
+  .@{__badge-number-prefix-cls} {
+    background: white;
+    color: @dark-alpha-3;
+    box-shadow: none;
   }
 }
 

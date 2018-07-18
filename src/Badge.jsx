@@ -15,7 +15,9 @@ import ScrollNumber from './ScrollNumber';
 
 class Badge extends React.Component {
   render() {
-    const { prefixCls, overflowCount, className, style, children, dot, text } = this.props;
+    const {
+      prefixCls, overflowCount, className, style, children, dot, text, themeType,
+    } = this.props;
     let { count } = this.props;
     count = count > overflowCount ? `${overflowCount}+` : count;
     if (dot) {
@@ -30,11 +32,14 @@ class Badge extends React.Component {
     const badgeCls = classNames({
       [className]: !!className,
       [prefixCls]: true,
+      [`${prefixCls}-${themeType}`]: themeType && themeType !== 'default',
       [`${prefixCls}-not-a-wrapper`]: !children,
     });
 
     return (
-      <span className={badgeCls} title={count}
+      <span
+        className={badgeCls}
+        title={count}
         style={this.props.style}
       >
         {children}
@@ -45,12 +50,15 @@ class Badge extends React.Component {
           transitionAppear
         >
           {
-            hidden ? null :
-              <ScrollNumber
-                data-show={!hidden}
-                className={scrollNumberCls}
-                count={count} style={style}
-              />
+            hidden ? null
+              : (
+                <ScrollNumber
+                  data-show={!hidden}
+                  className={scrollNumberCls}
+                  count={count}
+                  style={style}
+                />
+              )
           }
         </Animate>
       </span>
@@ -64,6 +72,7 @@ Badge.defaultProps = {
   dot: false,
   overflowCount: 99,
   text: null,
+  themeType: 'default',
 };
 
 Badge.propTypes = {
@@ -78,6 +87,7 @@ Badge.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.any,
+  themeType: PropTypes.oneOf(['default', 'dark']),
 };
 
 Badge.displayName = 'Badge';
