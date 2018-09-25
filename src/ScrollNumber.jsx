@@ -85,6 +85,7 @@ class ScrollNumber extends React.Component {
     const currentDigit = getNumberArray(this.state.count)[i];
     const lastDigit = getNumberArray(this.state.lastCount)[i];
     // 同方向则在同一侧切换数字
+
     if (this.state.count > this.state.lastCount) {
       if (currentDigit >= lastDigit) {
         return 10 + num;

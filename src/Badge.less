@@ -6,10 +6,10 @@
  * All rights reserved.
  */
 
-@__badge-prefix-cls: kuma-badge;
-@__badge-number-prefix-cls: kuma-scroll-number;
+@__badgePrefixCls: kuma-badge;
+@__badgeNumberPrefixCls: kuma-scroll-number;
 
-.@{__badge-prefix-cls} {
+.@{__badgePrefixCls} {
   position: relative;
   display: inline-block;
   line-height: 1;
@@ -81,7 +81,7 @@ a & {
   }
 }
 
-.@{__badge-number-prefix-cls} {
+.@{__badgeNumberPrefixCls} {
   overflow: hidden;
   &-only {
     display: inline-block;
@@ -98,8 +98,8 @@ a & {
   }
 }
 
-.@{__badge-prefix-cls}-dark {
-  .@{__badge-number-prefix-cls} {
+.@{__badgePrefixCls}-dark {
+  .@{__badgeNumberPrefixCls} {
     background: white;
     color: @dark-alpha-3;
     box-shadow: none;
