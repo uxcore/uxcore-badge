@@ -13,13 +13,12 @@ import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
 import { polyfill } from 'react-lifecycles-compat';
 
-const isIE = document.documentMode || !!window["ActiveXObject"] ||
-  "ActiveXObject" in window || navigator.userAgent.indexOf('Edge') !== -1
+const isWin = navigator.platform === "Win32" || navigator.platform === "Windows"
 
 const renderNumberList = position => {
   const childrenToReturn = [];
   for (let i = 0; i < 30; i++) {
-    if (isIE) {
+    if (isWin) {
       if (position === i) {
         childrenToReturn.push(
           <p key={i}>
@@ -119,7 +118,7 @@ class ScrollNumber extends React.Component {
       this.state.animateStarted ||
       getNumberArray(this.state.lastCount)[i] === undefined;
     const transformStyle = {};
-    if (!isIE) {
+    if (!isWin) {
       transformStyle.WebkitTransform = `translate3d(0, ${-position * height}px, 0)`
       transformStyle.transform = `translate3d(0, ${-position * height}px, 0)`
     }

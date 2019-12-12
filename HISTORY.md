@@ -1,3 +1,6 @@
+## 0.3.14
+* `FIXED` disable animate in windows
+
 ## 0.3.4
 
 * `CHANGED` support new prop  `themeType`
