@@ -13,15 +13,29 @@ import classnames from 'classnames';
 import { isCssAnimationSupported } from 'css-animation';
 import { polyfill } from 'react-lifecycles-compat';
 
+const isIE = document.documentMode || !!window["ActiveXObject"] ||
+  "ActiveXObject" in window || navigator.userAgent.indexOf('Edge') !== -1
+
 const renderNumberList = position => {
   const childrenToReturn = [];
   for (let i = 0; i < 30; i++) {
-    const currentClassName = position === i ? 'current' : null;
-    childrenToReturn.push(
-      <p key={i} className={currentClassName}>
-        {i % 10}
-      </p>
-    );
+    if (isIE) {
+      if (position === i) {
+        childrenToReturn.push(
+          <p key={i}>
+            {i % 10}
+          </p>
+        )
+        break
+      }
+    } else {
+      const currentClassName = position === i ? 'current' : null;
+      childrenToReturn.push(
+        <p key={i} className={currentClassName}>
+          {i % 10}
+        </p>
+      );
+    }
   }
   return childrenToReturn;
 };
@@ -104,14 +118,18 @@ class ScrollNumber extends React.Component {
     const removeTransition =
       this.state.animateStarted ||
       getNumberArray(this.state.lastCount)[i] === undefined;
+    const transformStyle = {};
+    if (!isIE) {
+      transformStyle.WebkitTransform = `translate3d(0, ${-position * height}px, 0)`
+      transformStyle.transform = `translate3d(0, ${-position * height}px, 0)`
+    }
     return createElement(
       'span',
       {
         className: `${this.props.prefixCls}-only`,
         style: {
           transition: removeTransition && 'none',
-          WebkitTransform: `translate3d(0, ${-position * height}px, 0)`,
-          transform: `translate3d(0, ${-position * height}px, 0)`,
+          ...transformStyle,
           height,
         },
         key: i,
